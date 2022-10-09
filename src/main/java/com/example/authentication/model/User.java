@@ -1,8 +1,11 @@
 package com.example.authentication.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Collection;
-import java.util.List;
 
 @Entity
 @Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
@@ -17,7 +20,11 @@ public class User {
     @Column(name = "last")
     private String lastName;
 
+    @NotNull
+    @NotBlank(message="Email is mandatory!")
+    @Email
     private String email;
+
     private String password;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
